@@ -82,7 +82,7 @@ driver.execute_script("arguments[0].classList.remove('disabled')", reset_button)
 reset_button.click()
 time.sleep(5)
 
-print("✅ Password reset completed.")
+print("✅Password reset completed.")
 
 sign_in_button = wait.until(
     EC.element_to_be_clickable((By.XPATH, "//a[@href='/signin' and contains(@class, 'button')]")))
