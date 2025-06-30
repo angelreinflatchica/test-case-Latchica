@@ -22,7 +22,7 @@ login_button = driver.find_element(By.NAME, "admin_login")
 login_button.click()
 
 # 2nd login with correct password
-time.sleep(3)
+time.sleep(5)
 email = driver.find_element(By.NAME, "admin_username")
 email.send_keys("admin")
 time.sleep(1)
@@ -48,9 +48,9 @@ add_faculty_link.click()
 time.sleep(2)
 
 # Fill out the Faculty form
-emp_num = wait.until(EC.presence_of_element_located((By.NAME, "emp_number")))
-emp_num.send_keys("041504")
-time.sleep(1)
+# emp_num = wait.until(EC.presence_of_element_located((By.NAME, "emp_number"))) #try natin na wag lagyan ang emp num field para ma-catch as error
+# emp_num.send_keys("041504")
+# time.sleep(1)
 
 name_field = driver.find_element(By.NAME, "fname")
 name_field.send_keys("Latchica, Angel Rein F.")
@@ -78,7 +78,7 @@ contact_num_field.send_keys("09464739613")
 time.sleep(1)
 
 email_field = driver.find_element(By.NAME, "email")
-email_field.send_keys("angelrein@gmail.com")
+email_field.send_keys("angelreingmail.com")
 time.sleep(1)
 
 pass_field = driver.find_element(By.NAME, "pass")
@@ -88,6 +88,46 @@ time.sleep(1)
 add_faculty = driver.find_element(By.NAME, "register_faculty")
 add_faculty.click()
 time.sleep(3)
+        
+# Check for validation errors
+try:
+    email_error = driver.find_element(By.ID, "email-error")
+    print("Email Error:", email_error.text)
+except:
+    print("No email error shown.")
+
+try:
+    emp_error = driver.find_element(By.ID, "emp_number-error")
+    print("Employee Number Error:", emp_error.text)
+except:
+    print("No employee number error shown.")
+
+try:
+    pass_error = driver.find_element(By.ID, "pass-error")
+    print("Password Error:", pass_error.text)
+except:
+    print("No password error shown.")
+
+# Now the addding emp num field
+time.sleep(2)
+emp_num = wait.until(EC.presence_of_element_located((By.NAME, "emp_number")))
+emp_num.send_keys("041504")
+time.sleep(1)
+
+add_faculty = driver.find_element(By.NAME, "register_faculty")
+add_faculty.click()
+time.sleep(3)
+
+# Now with correct email naman
+email_field = driver.find_element(By.NAME, "email")
+email_field.clear()
+email_field.send_keys("angelrein@gmail.com")
+time.sleep(1)
+
+add_faculty = driver.find_element(By.NAME, "register_faculty")
+add_faculty.click()
+time.sleep(3)
+print("Form resubmitted with valid employee number and email.")
 
 # Sidebar menu
 sidenav = wait.until(EC.element_to_be_clickable((By.XPATH, "//span[@onclick='openNav()']")))
@@ -139,7 +179,7 @@ create_schedule_link.click()
 time.sleep(2)
 
 sub_description_dropdown = Select(driver.find_element(By.ID, "subject_description"))
-sub_description_dropdown.select_by_visible_text("Hardware Servicing")
+sub_description_dropdown.select_by_visible_text("Introduction to Computer Science")
 time.sleep(1)
 
 days_dropdown = Select(driver.find_element(By.ID, "day_description"))
@@ -155,9 +195,10 @@ room_dropdown.select_by_visible_text("108")
 time.sleep(1)
 
 prof_dropdown = Select(driver.find_element(By.ID, "fname"))
-prof_dropdown.select_by_visible_text("Test")
+prof_dropdown.select_by_visible_text("Latchica, Angel Rein F.")
 time.sleep(1)
 
+# For handling error
 try:
     add_sched = driver.find_element(By.NAME, "add_schedule")
     add_sched.click()
@@ -185,9 +226,9 @@ try:
     logout_link = driver.find_element(By.LINK_TEXT, "Log Out")
     logout_link.click()
     print("Logged out successfully.")
+    time.sleep(3)
 except Exception as e:
     print("Logout failed:", e)
-time.sleep(3)
 
 # After Admin logs out, mag reredirect naman sya sa user/faculty Sign in Page
 driver.get("http://localhost/ocss-master/index.php")
@@ -210,10 +251,10 @@ wait.until(EC.presence_of_element_located((By.LINK_TEXT, "Profile")))
 
 profile_link = driver.find_element(By.LINK_TEXT, "Profile")
 profile_link.click()
-time.sleep(5)
+time.sleep(7)
 
 logout_link = driver.find_element(By.XPATH, "//a[@href='user_logout.php']")
 logout_link.click()
-time.sleep(3)
+time.sleep(4)
 
 driver.quit()
