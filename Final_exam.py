@@ -170,6 +170,27 @@ sidenav = wait.until(EC.element_to_be_clickable((By.XPATH, "//span[@onclick='ope
 sidenav.click()
 time.sleep(3)
 
+# Add room
+add_room_link = WebDriverWait(driver, 5).until(
+    EC.element_to_be_clickable((By.LINK_TEXT, "Add Room"))
+)
+time.sleep(1)
+add_room_link.click()
+time.sleep(2)
+
+room = driver.find_element(By.NAME, "room")
+room.send_keys("105")
+time.sleep(1)
+
+add_room = driver.find_element(By.NAME, "add_room")
+add_room.click()
+time.sleep(3)
+
+# Sidebar menu
+sidenav = wait.until(EC.element_to_be_clickable((By.XPATH, "//span[@onclick='openNav()']")))
+sidenav.click()
+time.sleep(3)
+
 # Proceed to Create Schedule
 create_schedule_link = WebDriverWait(driver, 5).until(
     EC.element_to_be_clickable((By.LINK_TEXT, "Create Schedule"))
